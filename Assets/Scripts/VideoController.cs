@@ -37,6 +37,7 @@ public class VideoController : MonoBehaviour
         {
             if (!playPlayer.isPlaying)
             {
+                SaveLog();
                 StartPlayVideo();
             }
         }
@@ -63,5 +64,13 @@ public class VideoController : MonoBehaviour
         playPlayer.Play();
         panel.texture = playTexture;
         idlePlayer.gameObject.SetActive(false);
+    }
+
+    void SaveLog()
+    {
+        DataLog dataLog = LogUtil.GetDatalogFromJson();
+        dataLog.status = StatusEnum.Jogou.ToString();
+        dataLog.additional = "vazio";
+        LogUtil.SaveLog(dataLog);
     }
 }
