@@ -13,6 +13,8 @@ public class VideoController : MonoBehaviour
 
     private RawImage panel;
 
+    public ArduinoCommunication arduinoCommunication;
+
     private void Start()
     {
         panel = GetComponent<RawImage>();
@@ -38,6 +40,7 @@ public class VideoController : MonoBehaviour
             if (!playPlayer.isPlaying)
             {
                 SaveLog();
+                arduinoCommunication.SendMessageToArduino("1");
                 StartPlayVideo();
             }
         }
@@ -45,6 +48,7 @@ public class VideoController : MonoBehaviour
 
     void OnVideoEnd(VideoPlayer vp)
     {
+        arduinoCommunication.SendMessageToArduino("0");
         StartIdleVideo();
     }
 
